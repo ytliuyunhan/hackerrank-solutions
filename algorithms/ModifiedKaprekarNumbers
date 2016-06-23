@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+bool isKaprekar(long long x);
+
+int main()
+{
+	int p, q;
+	cin >> p;
+	cin >> q;
+
+	vector<long long> results;
+
+	for (int i = p; i <= q; i++)
+	{
+		//cout << isKaprekar(i);
+		if (isKaprekar(i))
+			results.push_back(i);
+	}
+
+	typedef vector<long long>::const_iterator vec_iter;
+	if (results.size() > 0)
+	{
+		for (vec_iter i = results.begin(); i != results.end(); i++)
+		{
+			cout << *i << ' ';
+		}
+	}
+	else
+		cout << "INVALID RANGE";
+
+	int tmp;
+	cin >> tmp;
+}
+
+bool isKaprekar(long long x)
+{
+	long long y = x * x;
+	long long digits = 0;
+	long long y_temp = y;
+	while (y_temp)
+	{
+		y_temp /= 10;
+		digits++;
+	}
+
+	long long half, left, right;
+	half = ceil((float)digits / 2);
+	left = y / pow(10, half);
+	right = y - left * pow(10, half);
+
+	if (left + right == x)
+		return true;
+	else
+		return false;
+}
